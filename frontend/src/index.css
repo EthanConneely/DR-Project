@@ -1,0 +1,46 @@
+:root
+{
+    --bgDark: #191d1f;
+    --bgNormal: #1e2224;
+    --bgLight: #23272a;
+    --input: #32383d;
+    --accentDark: #557d1c;
+    --accentLight: #86c332;
+}
+
+html
+{
+    margin: 0;
+    padding: 0;
+
+    font-family: "Roboto", sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6
+{
+    color: #888888;
+}
+
+
+body,
+head,
+html
+{
+    background-color: var(--bgNormal);
+}
+
+#MainContainer
+{
+    margin: auto 0;
+    width: 75%;
+}
+
+.text-center
+{
+    text-align: center;
+}
