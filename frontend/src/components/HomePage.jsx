@@ -7,9 +7,7 @@ const Home = () =>
         console.log("Mounting...");
     });
     return (
-        <h1>
-            Geeks....!
-        </h1>
+        <div></div>
     );
 }
 

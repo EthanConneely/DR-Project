@@ -6,26 +6,30 @@
     --input: #32383d;
     --accentDark: #557d1c;
     --accentLight: #86c332;
+
+}
+
+*
+{
+    margin: 0;
+    padding: 0;
 }
 
 html
 {
-    margin: 0;
-    padding: 0;
+    color: #AAAAAA;
 
     font-family: "Roboto", sans-serif;
 }
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6
+.header
 {
-    color: #888888;
-}
+    display: flex;
+    justify-content: center;
+    padding: 1rem 0;
 
+    background-color: var(--bgDark);
+}
 
 body,
 head,

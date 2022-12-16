@@ -4,8 +4,9 @@ const Notes = () =>
 {
     useEffect(() =>
     {
-        console.log("Mounting...");
+
     });
+
     return (
         <h1>
             Notes
