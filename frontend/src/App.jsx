@@ -4,7 +4,6 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Error from "./components/404Page";
 import Notes from "./components/NotesPage";
 import Header from "./components/HeaderComponent";
-import { useEffect } from "react";
 
 function App()
 {

@@ -6,6 +6,8 @@
     --input: #32383d;
     --accentDark: #557d1c;
     --accentLight: #86c332;
+
+    --header-height: 3rem;
 }
 
 *
@@ -42,6 +44,7 @@ hr
 
 h1
 {
+    color: #D4D4D4;
     padding: 1.5rem 0;
 }
 
@@ -85,7 +88,7 @@ button:hover
 .container
 {
     width: 65%;
-    height: calc(100vh - 3rem);
+    min-height: calc(100vh - var(--header-height));
 
     margin-left: auto;
     padding: 0 1rem;
@@ -95,7 +98,7 @@ button:hover
 
 .centered-body
 {
-    height: calc(100vh - 3rem);
+    height: calc(100vh - var(--header-height));
 
     overflow: auto;
 }
