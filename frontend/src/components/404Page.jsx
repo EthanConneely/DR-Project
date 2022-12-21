@@ -1,12 +1,14 @@
-import React, { useEffect } from 'react';
+import React, { useEffect } from "react";
 
 const Error = () =>
 {
     useEffect(() =>
     {
+
     });
+
     return (
-        <div className='text-center'>
+        <div className="text-center">
             <h1>
                 404
             </h1>

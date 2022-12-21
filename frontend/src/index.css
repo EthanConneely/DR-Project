@@ -6,7 +6,6 @@
     --input: #32383d;
     --accentDark: #557d1c;
     --accentLight: #86c332;
-
 }
 
 *
@@ -15,20 +14,17 @@
     padding: 0;
 }
 
+a,
 html
 {
-    color: #AAAAAA;
+    color: var(--accentLight);
 
     font-family: "Roboto", sans-serif;
 }
 
-.header
+p
 {
-    display: flex;
-    justify-content: center;
-    padding: 1rem 0;
-
-    background-color: var(--bgDark);
+    color: #aaaaaa;
 }
 
 body,
@@ -38,13 +34,97 @@ html
     background-color: var(--bgNormal);
 }
 
-#MainContainer
+hr
 {
-    margin: auto 0;
-    width: 75%;
+    background-color: var(--input);
+    border: 1px solid var(--input);
+}
+
+h1
+{
+    padding: 1.5rem 0;
+}
+
+button
+{
+    margin: 1rem 0;
+    padding: 0.5rem 1rem;
+    color: white;
+    border: 0;
+    background-color: var(--accentDark);
+    border-radius: .1rem;
+}
+
+button:hover
+{
+    background-color: var(--input);
+    cursor: pointer;
+}
+
+.header
+{
+    display: flex;
+    justify-content: center;
+    padding: 1rem 0;
+
+    height: 1rem;
+
+    background-color: var(--bgLight);
+}
+
+.home
+{
+    text-align: center;
+}
+
+.page-link
+{
+    margin: 0.5rem 0;
+}
+
+.container
+{
+    width: 65%;
+    height: calc(100vh - 3rem);
+
+    margin-left: auto;
+    padding: 0 1rem;
+    margin-right: auto;
+    background-color: var(--bgDark);
+}
+
+.centered-body
+{
+    height: calc(100vh - 3rem);
+
+    overflow: auto;
 }
 
 .text-center
 {
     text-align: center;
+}
+
+.back
+{
+    position: absolute;
+    height: 2rem;
+    left: 10%;
+    top: .5rem;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar
+{
+    width: .75rem;
+}
+
+::-webkit-scrollbar-track
+{
+    background-color: var(--bgNormal);
+}
+
+::-webkit-scrollbar-thumb
+{
+    background-color: var(--input);
 }

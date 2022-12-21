@@ -6,7 +6,11 @@ Project 2022
 
 By Ethan Conneely (G00393941)
 
+## Extras
+
+- Used functional components
+
 ## Ideas
 
-- Notion clone
-- Whatsapp clone
+- [x] Notion clone
+- [ ] Whatsapp clone

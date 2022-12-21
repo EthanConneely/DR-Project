@@ -1,0 +1,35 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"type": "npm",
+			"script": "start",
+			"path": "frontend",
+			"problemMatcher": [],
+			"label": "npm: start - frontend",
+			"detail": "react-scripts start",
+			"presentation": {
+				"echo": false,
+				"reveal": "always",
+				"focus": false,
+				"panel": "shared",
+				"showReuseMessage": false,
+				"clear": false
+			},
+			"runOptions": {
+				"runOn": "folderOpen"
+			}
+		},
+		{
+			"label": "server",
+			"type": "shell",
+			"command": "node ${workspaceFolder}/backend/server.js",
+			"problemMatcher": [
+				"$go"
+			],
+			"runOptions": {
+				"runOn": "folderOpen"
+			}
+		}
+	]
+}
