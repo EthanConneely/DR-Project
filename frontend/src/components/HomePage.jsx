@@ -1,25 +1,28 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import { Link } from "react-router-dom";
 
 const Home = () =>
 {
+    const [pages, setPages] = useState([]);
+
     useEffect(() =>
     {
-        console.log("Home");
+        GetNotes()
     }, []);
-
-    let test = ["123", "1234", "1235"]
-
 
     return (
         <div className="home">
             <h1>Pages</h1>
             {
-                test.map(element =>
+                pages.map(element =>
                 {
                     return (
-                        <div key={element}>
+                        <div key={element._id}>
                             <hr />
-                            <p className="page-link">{element}</p>
+                            <div className="page-link">
+                                <Link to={element._id} state={element} >{element.emoji} {element.title}</Link>
+                            </div>
                         </div>
                     )
                 })
@@ -28,15 +31,22 @@ const Home = () =>
             <button onClick={newPage}>New Page</button>
             <hr />
             <br />
-        </div>
+        </div >
     );
 
     function newPage()
     {
-        test.push("12312123")
-        console.log("Click");
+        axios.get("http://localhost:4000/api/notes")
+            .then(d => setPages(d.data))
+            .catch(err => console.log(err))
+    }
+
+    function GetNotes()
+    {
+        axios.get("http://localhost:4000/api/notes")
+            .then(d => setPages(d.data))
+            .catch(err => console.log(err))
     }
 }
-
 
 export default Home;

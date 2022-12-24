@@ -13,10 +13,12 @@ textarea
 
     min-height: 30rem;
 
+    text-align: justify;
+
     overflow: hidden;
 }
 
 .title
 {
-    text-transform: capitalize;
+    text-shadow: 2px 2px 2px black;
 }

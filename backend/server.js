@@ -1,10 +1,14 @@
-const app = express()
 const bodyParser = require('body-parser')
 const cors = require('cors');
 const express = require('express')
 const mongoose = require('mongoose');
 const path = require("path");
+
+const app = express()
 const port = 4000
+
+// Get rid of annoying warning
+mongoose.set('strictQuery', true);
 
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }))
@@ -12,6 +16,7 @@ app.use(bodyParser.urlencoded({ extended: false }))
 // parse application/json
 app.use(bodyParser.json())
 
+// For cors when develiping
 app.use(cors());
 app.use(function (req, res, next)
 {
@@ -21,52 +26,92 @@ app.use(function (req, res, next)
     next();
 });
 
-app.use(express.static(path.join(__dirname, "../build/")))
-app.use("static", express.static(path.join(__dirname, "../build/static/")))
+// Mongo connection url
+const mongoUsername = "Ethan"
+const mongoPass = "ghjk"
+const mongodbUri = `mongodb+srv://${mongoUsername}:${mongoPass}@cluster0.n4grbrf.mongodb.net/?retryWrites=true&w=majority`;
 
-//mongodb+srv://admin:<password>@cluster0.8taek.mongodb.net/?retryWrites=true&w=majority
-// getting-started.js
-main().catch(err => console.log(err));
-async function main()
-{
-    await mongoose.connect('mongodb+srv://admin:admin@cluster0.8taek.mongodb.net/?retryWrites=true&w=majority');
-}
+const db = mongoose.createConnection(mongodbUri);
 
-const bookSchema = new mongoose.Schema({
+const notesDB = db.useDb("notesDB")
+
+const noteSchema = new mongoose.Schema({
+    _id: String,
     title: String,
-    cover: String,
-    author: String
+    emoji: String,
+    banner: String,
+    lines: String,
 });
 
-const bookModel = mongoose.model('asdsdgergae', bookSchema);
+const noteModel = notesDB.model('pages', noteSchema);
 
-app.post('/api/books', (req, res) =>
+// Start listening for connections
+app.listen(port, () =>
 {
-    console.log(req.body);
-
-    bookModel.create({
-        title: req.body.title,
-        cover: req.body.cover,
-        author: req.body.author
-    })
-
-    res.send('Data Recieved');
+    console.log(`Notes app listening on port ${port}`)
 })
 
-app.get('/api/books', (req, res) =>
+// Get all the notes stored in a database
+app.get('/api/notes', (req, res) =>
 {
-    bookModel.find((error, data) =>
+    noteModel.find((error, data) =>
     {
         res.json(data);
     })
 })
 
-// Delete the book
-app.delete('/api/book/:id', (req, res) =>
+// Get a single note page from an id
+app.get('/api/note/:id', (req, res) =>
+{
+    noteModel.findById(req.params.id, (error, data) =>
+    {
+        console.log("Get: ", data);
+        res.json(data);
+    })
+})
+
+// Update a note page with an id
+app.put('/api/note/:id', (req, res) =>
+{
+    noteModel.findByIdAndUpdate(req.params.id, req.body, { new: true },
+        (error, data) =>
+        {
+            console.log("Update: " + req.params.id);
+            res.send(data);
+        })
+})
+
+// Create new note page
+app.post('/api/notes', (req, res) =>
+{
+    // Pick a random default emoji
+    const emojis = ["📒", "🎨", "🎮", "🏠"]
+    noteModel.create({
+        title: "New Note",
+        emoji: emojis[Math.floor(Math.random() * emojis.length)],
+        banner: "https://wallpapertag.com/wallpaper/full/7/2/6/790280-free-download-hex-grid-wallpaper-1920x1200-for-mobile.jpg",
+        lines: "Enter notes here!"
+    })
+
+    res.send('Data Recieved');
+})
+
+// For serving the build files
+app.use(express.static(path.join(__dirname, "../frontend/build/")))
+app.use("static", express.static(path.join(__dirname, "../frontend/build/static/")))
+app.get('*', (req, res) =>
+{
+    noteModel.find((error, data) =>
+    {
+        res.sendFile(path.join(__dirname, "/../frontend/build/index.html"))
+    })
+})
+
+app.delete('/api/note/:id', (req, res) =>
 {
     console.log(req.params.id);
 
-    bookModel.findByIdAndDelete(req.params.id, (err, data) =>
+    noteModel.findByIdAndDelete(req.params.id, (err, data) =>
     {
         if (err)
         {
@@ -77,37 +122,4 @@ app.delete('/api/book/:id', (req, res) =>
             res.json(data);
         }
     })
-})
-
-app.get('/api/book/:id', (req, res) =>
-{
-    console.log(req.params.id);
-    bookModel.findById(req.params.id, (error, data) =>
-    {
-        res.json(data);
-    })
-})
-
-app.put('/api/book/:id', (req, res) =>
-{
-    console.log("Update: " + req.params.id);
-
-    bookModel.findByIdAndUpdate(req.params.id, req.body, { new: true },
-        (error, data) =>
-        {
-            res.send(data);
-        })
-})
-
-app.get('*', (req, res) =>
-{
-    bookModel.find((error, data) =>
-    {
-        res.sendFile(path.join(__dirname, "/../build/index.html"))
-    })
-})
-
-app.listen(port, () =>
-{
-    console.log(`Example app listening on port ${port}`)
 })

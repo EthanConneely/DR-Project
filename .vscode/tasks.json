@@ -23,10 +23,7 @@
 		{
 			"label": "server",
 			"type": "shell",
-			"command": "node ${workspaceFolder}/backend/server.js",
-			"problemMatcher": [
-				"$go"
-			],
+			"command": "nodemon ${workspaceFolder}/backend/server.js",
 			"runOptions": {
 				"runOn": "folderOpen"
 			}

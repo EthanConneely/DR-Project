@@ -29,6 +29,16 @@ p
     color: #aaaaaa;
 }
 
+a
+{
+    text-decoration: none;
+}
+
+a:hover
+{
+    color: white;
+}
+
 body,
 head,
 html
@@ -42,6 +52,7 @@ hr
     border: 1px solid var(--input);
 }
 
+label,
 h1
 {
     color: #D4D4D4;
@@ -116,6 +127,35 @@ button:hover
     top: .5rem;
 }
 
+.title
+{
+    background-color: transparent;
+    border: 0 none;
+    outline: 0;
+    color: white;
+
+    font-size: xx-large;
+    font-weight: bold;
+
+    margin: 2rem 0;
+}
+
+.title-input
+{
+    width: 12rem;
+}
+
+.emoji-input
+{
+    width: 3rem;
+    height: 3rem;
+}
+
+.page-link
+{
+    margin: .5rem 0;
+}
+
 /* Custom Scrollbar */
 ::-webkit-scrollbar
 {
@@ -130,4 +170,14 @@ button:hover
 ::-webkit-scrollbar-thumb
 {
     background-color: var(--input);
+}
+
+.banner
+{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-position: center center;
+
+    margin-bottom: 1rem;
 }
