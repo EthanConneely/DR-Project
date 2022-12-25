@@ -36,7 +36,6 @@ const db = mongoose.createConnection(mongodbUri);
 const notesDB = db.useDb("notesDB")
 
 const noteSchema = new mongoose.Schema({
-    _id: String,
     title: String,
     emoji: String,
     banner: String,
@@ -65,7 +64,6 @@ app.get('/api/note/:id', (req, res) =>
 {
     noteModel.findById(req.params.id, (error, data) =>
     {
-        console.log("Get: ", data);
         res.json(data);
     })
 })
@@ -73,27 +71,27 @@ app.get('/api/note/:id', (req, res) =>
 // Update a note page with an id
 app.put('/api/note/:id', (req, res) =>
 {
+    console.log("update", req.body);
     noteModel.findByIdAndUpdate(req.params.id, req.body, { new: true },
         (error, data) =>
         {
-            console.log("Update: " + req.params.id);
             res.send(data);
         })
 })
 
 // Create new note page
-app.post('/api/notes', (req, res) =>
+app.post('/api/notes', async (req, res) =>
 {
     // Pick a random default emoji
     const emojis = ["📒", "🎨", "🎮", "🏠"]
-    noteModel.create({
+    let t = await noteModel.create({
         title: "New Note",
         emoji: emojis[Math.floor(Math.random() * emojis.length)],
-        banner: "https://wallpapertag.com/wallpaper/full/7/2/6/790280-free-download-hex-grid-wallpaper-1920x1200-for-mobile.jpg",
+        banner: "https://wallpapercave.com/wp/KPZGQrc.jpg",
         lines: "Enter notes here!"
     })
 
-    res.send('Data Recieved');
+    res.send(t.toJSON());
 })
 
 // For serving the build files

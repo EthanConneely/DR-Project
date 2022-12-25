@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 const Home = () =>
 {
     const [pages, setPages] = useState([]);
+
+    let navigate = useNavigate();
 
     useEffect(() =>
     {
@@ -36,8 +38,12 @@ const Home = () =>
 
     function newPage()
     {
-        axios.get("http://localhost:4000/api/notes")
-            .then(d => setPages(d.data))
+        axios.post("http://localhost:4000/api/notes")
+            .then(d =>
+            {
+                let data = d.data;
+                navigate("/" + data._id, { replace: true })
+            })
             .catch(err => console.log(err))
     }
 
