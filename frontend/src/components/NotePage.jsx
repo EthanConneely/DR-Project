@@ -25,7 +25,7 @@ const Note = () =>
                 setBanner(d.data.banner)
 
                 // Set the height of the text area after the text is loaded
-                UpdateTextareaHeight({ target: textInput.current })
+                updateTextareaHeight({ target: textInput.current })
             })
             .catch(err => console.log(err))
     }, [])
@@ -46,17 +46,16 @@ const Note = () =>
     return (
         <div>
             <div className="banner" style={{ backgroundImage: "url('" + banner + "')" }}>
-                <input className="title emoji-input" type="text" value={emoji} onInput={e => { setEmoji(e.target.value); }} maxLength={2} />
-                <input className="title title-input" type="text" value={title} onInput={e => { setTitle(e.target.value); }} maxLength={21} />
+                <input className="title emoji-input" type="text" value={emoji} onInput={e => setEmoji(e.target.value)} maxLength={2} />
+                <input className="title title-input" type="text" value={title} onInput={e => setTitle(e.target.value)} maxLength={21} />
             </div>
-            <textarea id="main-text" value={lines} autoFocus ref={textInput} onInput={e => { UpdateTextareaHeight(e); setLines(e.target.value); }}></textarea>
+            <textarea id="main-text" value={lines} autoFocus ref={textInput} onInput={e => { updateTextareaHeight(e); setLines(e.target.value); }}></textarea>
         </div >
     );
 
     // Update the height of the text input area
-    function UpdateTextareaHeight(e)
+    function updateTextareaHeight(e)
     {
-
         e.target.style.height = "5px";
         e.target.style.height = (e.target.scrollHeight) + "px";
     }

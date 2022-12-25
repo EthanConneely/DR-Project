@@ -14,7 +14,8 @@ mongoose.set('strictQuery', true);
 app.use(bodyParser.urlencoded({ extended: false }))
 
 // parse application/json
-app.use(bodyParser.json())
+// Increse the limit on file size
+app.use(bodyParser.json({ limit: "50mb" }))
 
 // For cors when develiping
 app.use(cors());
@@ -91,7 +92,7 @@ app.post('/api/notes', async (req, res) =>
         lines: "✨ Enter notes here! ✨"
     })
 
-    res.send(t.toJSON());
+    res.json(t);
 })
 
 // Delete the note

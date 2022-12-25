@@ -2,11 +2,6 @@ import React, { useEffect } from "react";
 
 const Error = () =>
 {
-    useEffect(() =>
-    {
-
-    });
-
     return (
         <div className="text-center">
             <h1>

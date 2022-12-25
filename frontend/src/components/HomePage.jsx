@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
+import PageLink from "./PageLink";
 
 const Home = () =>
 {
@@ -10,24 +11,19 @@ const Home = () =>
 
     useEffect(() =>
     {
-        GetNotes()
+        getNotes()
     }, []);
 
     return (
         <div className="home">
             <h1>Pages</h1>
             {
-                pages.map(element =>
+                pages.map(note =>
                 {
                     return (
-                        <div key={element._id}>
+                        <div key={note._id}>
                             <hr />
-                            <div className="page-link">
-                                <Link to={element._id}>{element.emoji} {element.title}</Link>
-                                <a className="delete-button" onClick={e => deletePage(element.title, element._id)}>
-                                    <img src="./Delete.png" />
-                                </a>
-                            </div>
+                            <PageLink note={note} reloadData={getNotes}></PageLink>
                         </div>
                     )
                 })
@@ -50,17 +46,7 @@ const Home = () =>
             .catch(err => window.alert(err))
     }
 
-    function deletePage(title, id)
-    {
-        if (window.confirm("Are you sure you want to delete " + title))
-        {
-            axios.delete("http://localhost:4000/api/note/" + id)
-                .then(_ => GetNotes())
-                .catch(err => window.alert(err))
-        }
-    }
-
-    function GetNotes()
+    function getNotes()
     {
         axios.get("http://localhost:4000/api/notes")
             .then(d => setPages(d.data))
