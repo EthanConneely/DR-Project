@@ -88,7 +88,7 @@ app.post('/api/notes', async (req, res) =>
         title: "New Note",
         emoji: emojis[Math.floor(Math.random() * emojis.length)],
         banner: "https://wallpapercave.com/wp/KPZGQrc.jpg",
-        lines: "Enter notes here!"
+        lines: "✨ Enter notes here! ✨"
     })
 
     res.send(t.toJSON());
