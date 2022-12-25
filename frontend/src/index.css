@@ -154,7 +154,27 @@ button:hover
 
 .page-link
 {
+    position: relative;
     margin: .5rem 0;
+}
+
+.delete-button
+{
+    position: absolute;
+    right: 0;
+}
+
+.delete-button>img
+{
+    filter: brightness(10);
+    top: .5rem;
+    height: 1.5rem;
+}
+
+.delete-button>img:hover
+{
+    filter: brightness(1);
+    cursor: pointer;
 }
 
 /* Custom Scrollbar */

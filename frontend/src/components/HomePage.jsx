@@ -23,7 +23,10 @@ const Home = () =>
                         <div key={element._id}>
                             <hr />
                             <div className="page-link">
-                                <Link to={element._id} state={element} >{element.emoji} {element.title}</Link>
+                                <Link to={element._id}>{element.emoji} {element.title}</Link>
+                                <a className="delete-button" onClick={e => deletePage(element.title)}>
+                                    <img src="./Delete.png" />
+                                </a>
                             </div>
                         </div>
                     )
@@ -45,6 +48,14 @@ const Home = () =>
                 navigate("/" + data._id, { replace: true })
             })
             .catch(err => console.log(err))
+    }
+
+    function deletePage(title)
+    {
+        if (window.confirm("Are you sure you want to delete " + title))
+        {
+
+        }
     }
 
     function GetNotes()
