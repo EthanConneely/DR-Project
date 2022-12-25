@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Home = () =>
 {
@@ -24,7 +24,7 @@ const Home = () =>
                             <hr />
                             <div className="page-link">
                                 <Link to={element._id}>{element.emoji} {element.title}</Link>
-                                <a className="delete-button" onClick={e => deletePage(element.title)}>
+                                <a className="delete-button" onClick={e => deletePage(element.title, element._id)}>
                                     <img src="./Delete.png" />
                                 </a>
                             </div>
@@ -47,14 +47,16 @@ const Home = () =>
                 let data = d.data;
                 navigate("/" + data._id, { replace: true })
             })
-            .catch(err => console.log(err))
+            .catch(err => window.alert(err))
     }
 
-    function deletePage(title)
+    function deletePage(title, id)
     {
         if (window.confirm("Are you sure you want to delete " + title))
         {
-
+            axios.delete("http://localhost:4000/api/note/" + id)
+                .then(_ => GetNotes())
+                .catch(err => window.alert(err))
         }
     }
 
@@ -62,7 +64,7 @@ const Home = () =>
     {
         axios.get("http://localhost:4000/api/notes")
             .then(d => setPages(d.data))
-            .catch(err => console.log(err))
+            .catch(err => window.alert(err))
     }
 }
 

@@ -71,7 +71,7 @@ app.get('/api/note/:id', (req, res) =>
 // Update a note page with an id
 app.put('/api/note/:id', (req, res) =>
 {
-    console.log("update", req.body);
+    // console.log("update", req.body);
     noteModel.findByIdAndUpdate(req.params.id, req.body, { new: true },
         (error, data) =>
         {
@@ -94,21 +94,9 @@ app.post('/api/notes', async (req, res) =>
     res.send(t.toJSON());
 })
 
-// For serving the build files
-app.use(express.static(path.join(__dirname, "../frontend/build/")))
-app.use("static", express.static(path.join(__dirname, "../frontend/build/static/")))
-app.get('*', (req, res) =>
-{
-    noteModel.find((error, data) =>
-    {
-        res.sendFile(path.join(__dirname, "/../frontend/build/index.html"))
-    })
-})
-
+// Delete the note
 app.delete('/api/note/:id', (req, res) =>
 {
-    console.log(req.params.id);
-
     noteModel.findByIdAndDelete(req.params.id, (err, data) =>
     {
         if (err)
@@ -119,5 +107,17 @@ app.delete('/api/note/:id', (req, res) =>
         {
             res.json(data);
         }
+    })
+})
+
+
+// For serving the build files
+app.use(express.static(path.join(__dirname, "../frontend/build/")))
+app.use("static", express.static(path.join(__dirname, "../frontend/build/static/")))
+app.get('*', (req, res) =>
+{
+    noteModel.find((error, data) =>
+    {
+        res.sendFile(path.join(__dirname, "/../frontend/build/index.html"))
     })
 })
