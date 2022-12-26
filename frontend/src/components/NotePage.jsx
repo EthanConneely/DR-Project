@@ -56,7 +56,6 @@ const Note = () =>
     // Update the height of the text input area
     function updateTextareaHeight(e)
     {
-        e.target.style.height = "5px";
         e.target.style.height = (e.target.scrollHeight) + "px";
     }
 }
