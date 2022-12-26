@@ -16,6 +16,7 @@ const Note = () =>
 
     useEffect(_ =>
     {
+        // Load the data in for this pages note
         axios.get("http://localhost:4000/api/note/" + params.page)
             .then(d =>
             {
@@ -39,19 +40,34 @@ const Note = () =>
             return;
         }
 
+        // Update the note when a change in the variable occurs
         axios.put("http://localhost:4000/api/note/" + params.page, { title, emoji, lines, banner })
 
     }, [title, emoji, lines, banner]);
 
     return (
         <div>
+            {/* Display the background image using direct styling */}
             <div className="banner" style={{ backgroundImage: "url('" + banner + "')" }}>
                 <input className="title emoji-input" type="text" value={emoji} onInput={e => setEmoji(e.target.value)} maxLength={2} />
                 <input className="title title-input" type="text" value={title} onInput={e => setTitle(e.target.value)} maxLength={21} />
+                <a className="upload-button" onClick={e => updateBanner()}>
+                    <img src="./Upload.png" />
+                </a>
             </div>
             <textarea id="main-text" value={lines} autoFocus ref={textInput} onInput={e => { updateTextareaHeight(e); setLines(e.target.value); }}></textarea>
         </div >
     );
+
+    function updateBanner()
+    {
+        let newBanner = window.prompt("Enter the new background image url", banner);
+
+        if (newBanner !== null)
+        {
+            setBanner(newBanner)
+        }
+    }
 
     // Update the height of the text input area
     function updateTextareaHeight(e)

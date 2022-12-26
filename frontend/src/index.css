@@ -195,12 +195,34 @@ button:hover
 
 .banner
 {
+    position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
     background-position: center center;
 
     margin-bottom: 1rem;
+}
+
+.upload-button
+{
+    margin: .5rem;
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
+.upload-button>img
+{
+    filter: brightness(10);
+    top: .5rem;
+    height: 1.5rem;
+}
+
+.upload-button>img:hover
+{
+    filter: brightness(1);
+    cursor: pointer;
 }
 
 textarea
